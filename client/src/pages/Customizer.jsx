@@ -14,7 +14,11 @@ const Customizer = () => {
     const [file, setFile] = useState("")
     const [prompt, setPrompt] = useState("")
     const [generatingImg, setGeneratingImg] = useState(false)
-    const [activeEditorTab, setActiveEditorTab] = useState("")
+    const [activeEditorTab, setActiveEditorTab] = useState({
+        colorpicker: false,
+        filepicker: false,
+        aipicker: false,
+    })
     const [activeFilterTab, setActiveFilterTab] = useState({
         logoShirt: true,
         stylishShirt: false,
@@ -106,14 +110,14 @@ const Customizer = () => {
         <AnimatePresence>
             {!snap.intro && (
                 <>
-                    <motion.div key="custom" className="absolute top-0 left-0 z-10" {...slideAnimation("left")}>
+                    <motion.div key="custom" className="absolute top-0 left-5 z-10" {...slideAnimation("left")}>
                         <div className="flex items-center min-h-screen">
-                            <div className="editortabs-container tabs">
+                            <div className="editortabs-container tabs" style={{ outlineColor: snap.color }}>
                                 {EditorTabs.map((tab) => (
                                     <Tab
                                         key={tab.name}
                                         tab={tab}
-                                        handleClick={() => setActiveEditorTab(tab.name)} />
+                                        handleClick={() => setActiveEditorTab(prev => prev === tab.name ? false : tab.name)} />
                                 ))}
                                 {generateTabContent()}
                             </div>
@@ -132,7 +136,7 @@ const Customizer = () => {
                                 key={tab.name}
                                 tab={tab}
                                 isFilterTab
-                                isActive={activeFilterTab[tab.name]}
+                                isActiveTab={activeFilterTab[tab.name]}
                                 handleClick={() => handleActiveFilterTab(tab.name)} />
                         ))}
                         <button

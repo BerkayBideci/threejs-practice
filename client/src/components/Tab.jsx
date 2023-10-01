@@ -3,7 +3,7 @@ import state from "../store/index"
 
 const Tab = ({ tab, isFilterTab, isActiveTab, handleClick }) => {
     const snap = useSnapshot(state)
-    const activeStyles = isFilterTab && isActiveTab ? { backgroundColor: snap.color, opacity: 0.5 } : { backgroundColor: "transparent", opacity: 1 }
+    const activeStyles = isFilterTab && isActiveTab ? { backgroundColor: snap.color, opacity: 1 } : null
     return (
         <div
             key={tab.name}
